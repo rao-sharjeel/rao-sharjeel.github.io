@@ -226,7 +226,7 @@ h6,
         border-bottom: 1px solid rgba(256, 256, 256, .1);
         z-index: 999;
     }
-    
+
     .sticky-top.navbar-dark {
         position: fixed;
         background: #FFFFFF;
@@ -435,6 +435,10 @@ h6,
 .testimonial-carousel .owl-item.center .testimonial-item {
     background: #FFFFFF !important;
     box-shadow: 0 0 30px #DDDDDD;
+}
+
+.footer-title {
+    font-family: 'MuseoModerno', cursive;
 }
 
 

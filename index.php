@@ -12,11 +12,15 @@
     <link href="img/Sigma AI symbol only.png" rel="icon">
 
     <!-- Google Web Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -28,7 +32,7 @@
     <!-- New custom font called MuseoModerno -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   
+
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/animate/animate.min.css" rel="stylesheet">
@@ -41,8 +45,60 @@
 </head>
 
 <body>
+    <?php
+    require 'phpmailer/src/PHPMailer.php';
+    require 'phpmailer/src/SMTP.php';
+    require 'phpmailer/src/Exception.php';
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $name = $_POST["name"];
+        $email = $_POST["email"];
+        $message = $_POST["message"];
+        if (isset($name) && empty($name) && isset($email) && empty($email)) {
+            echo '<script>alert("Name and email mandatory");</script>';
+        } else {
+            $to = "sharjeel.rao089@gmail.com"; // Replace with your own email address
+            $subject = "New Contact Form Submission";
+            $body = "Name: " . $name . "\n\nEmail: " . $email . "\n\nMessage: " . $message;
+
+            $headers = "From: " . $email;
+
+            $mail = new PHPMailer(true);
+
+            $mail->SMTPDebug = false;
+            $mail->isSMTP(); // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
+    
+            $mail->SMTPAuth = true; // Enable SMTP authentication
+            $mail->Username = 'kumaillatif60@gmail.com'; // SMTP username
+            $mail->Password = 'xgxaqnzyzfjgaxfe'; // SMTP password
+            $mail->SMTPSecure = 'ssl'; // Enable TLS encryption, `ssl` also accepted
+    
+            $mail->Port = 465; // TCP port to connect to
+            $mail->setFrom($email, $name); //Your application NAME and EMAIL 
+            $mail->addAddress('kumaillatif60@gmail.com', 'Sigma Soft AI'); // Target email
+            $mail->isHTML(true); // Set email format to HTML
+    
+            $mail->Subject = 'Sigma Soft user connection request'; //Message subject
+            $mail->Body = $body;
+            $mail->addCC('sharjeel.rao089@gmail.com');
+
+            try {
+                $mail->send();
+                echo '<script>alert("Message sent successfully");</script>';
+            } catch (Exception $e) {
+                echo '<script>alert("Error sending request");</script>';
+            }
+        }
+    }
+    ?>
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner"></div>
     </div>
     <!-- Spinner End -->
@@ -60,11 +116,21 @@
             </div>
             <div class="col-lg-4 text-center text-lg-end">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
-                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="https://www.linkedin.com/company/sigma-soft-tech" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in fw-normal"></i></a>
-                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="https://twitter.com/SigmaSoftAI" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fw-normal"></i></a>
-                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="https://www.facebook.com/profile.php?id=100094257815011" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fw-normal"></i></a>
-                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="https://www.instagram.com/sigmasoftai" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fw-normal"></i></a>
-                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href="https://youtube.com/@SigmaSoftAI" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+                        href="https://www.linkedin.com/company/sigma-soft-tech" target="_blank"
+                        rel="noopener noreferrer"><i class="fab fa-linkedin-in fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+                        href="https://twitter.com/SigmaSoftAI" target="_blank" rel="noopener noreferrer"><i
+                            class="fab fa-twitter fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+                        href="https://www.facebook.com/profile.php?id=100094257815011" target="_blank"
+                        rel="noopener noreferrer"><i class="fab fa-facebook-f fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2"
+                        href="https://www.instagram.com/sigmasoftai" target="_blank" rel="noopener noreferrer"><i
+                            class="fab fa-instagram fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle"
+                        href="https://youtube.com/@SigmaSoftAI" target="_blank" rel="noopener noreferrer"><i
+                            class="fab fa-youtube fw-normal"></i></a>
                 </div>
             </div>
         </div>
@@ -75,18 +141,19 @@
     <!-- Navbar & Carousel Start -->
     <div class="container-fluid position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0 title-font">
-            <a href="index.html" class="navbar-brand p-0">
+            <a href="index.php" class="navbar-brand p-0">
                 <h1 class="m-0 title-font">
                     <!-- <i class="fa fa-user-tie me-2"></i> -->
 
-               <img src="img/logonbg.png" alt="" height="100vw" width="100vw"></h1>
+                    <img src="img/logonbg.png" alt="" height="100vw" width="100vw">
+                </h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="index.php" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">About</a>
                     <a href="service.html" class="nav-item nav-link">Services</a>
                     <div class="nav-item dropdown">
@@ -106,7 +173,7 @@
                             <a href="quote.html" class="dropdown-item">Free Quote</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="contact.php" class="nav-item nav-link">Contact</a>
                 </div>
                 <!-- <butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton> -->
                 <!-- <a href="https://htmlcodex.com/startup-company-website-template" class="btn btn-primary py-2 px-4 ms-3">Download Pro Version</a> -->
@@ -119,7 +186,8 @@
                     <img class="w-100" src="img/mainBG.png" alt="Image">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
-                            <h5 class="text-white text-uppercase mb-3 animated slideInDown">Streamlining your business with AI</h5>
+                            <h5 class="text-white text-uppercase mb-3 animated slideInDown">Streamlining your business
+                                with AI</h5>
                             <h1 class="display-1 text-white mb-md-4 animated zoomIn title-font">Sigma Soft AI</h1>
                             <!-- <a href="quote.html" class="btn btn-primary bg-black py-md-3 px-md-5 me-3 animated slideInLeft">Free Quote</a>
                             <a href="" class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">Contact Us</a> -->
@@ -158,11 +226,13 @@
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
                 <div class="modal-header border-0">
-                    <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex align-items-center justify-content-center">
                     <div class="input-group" style="max-width: 600px;">
-                        <input type="text" class="form-control bg-transparent border-primary p-3" placeholder="Type search keyword">
+                        <input type="text" class="form-control bg-transparent border-primary p-3"
+                            placeholder="Type search keyword">
                         <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
                     </div>
                 </div>
@@ -177,8 +247,10 @@
         <div class="container py-5 pt-lg-0">
             <div class="row gx-0">
                 <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s">
-                    <div class="shadow d-flex align-items-center justify-content-center p-4 bg-custom-dark" style="height: 150px;">
-                        <div class="d-flex align-items-center justify-content-center rounded mb-2 bg-primary-custom" style="width: 60px; height: 60px;">
+                    <div class="shadow d-flex align-items-center justify-content-center p-4 bg-custom-dark"
+                        style="height: 150px;">
+                        <div class="d-flex align-items-center justify-content-center rounded mb-2 bg-primary-custom"
+                            style="width: 60px; height: 60px;">
                             <i class="fa fa-users text-custom-dark"></i>
                         </div>
                         <div class="ps-4 ">
@@ -188,8 +260,10 @@
                     </div>
                 </div>
                 <div class="col-lg-6 wow zoomIn" data-wow-delay="0.3s">
-                    <div class="shadow d-flex align-items-center justify-content-center p-4 bg-primary-custom" style="height: 150px; ">
-                        <div class="d-flex align-items-center justify-content-center rounded mb-2 bg-custom-dark" style="width: 60px; height: 60px;">
+                    <div class="shadow d-flex align-items-center justify-content-center p-4 bg-primary-custom"
+                        style="height: 150px; ">
+                        <div class="d-flex align-items-center justify-content-center rounded mb-2 bg-custom-dark"
+                            style="width: 60px; height: 60px;">
                             <i class="fa fa-check text-primary-custom"></i>
                         </div>
                         <div class="ps-4">
@@ -245,7 +319,10 @@
                         <h5 class="fw-bold text-custom-dark text-uppercase">About Us</h5>
                         <h1 class="mb-0">Custom Software Solutions for Streamlined Businesses</h1>
                     </div>
-                    <p class="mb-4">At Sigma AI Solutions, we streamline businesses with AI integration and custom software solutions. Our team of skilled engineers, developers, and UX architects crafts impactful solutions to increase efficiency and drive digital transformation. Partner with us for AI-powered success.</p>
+                    <p class="mb-4">At Sigma AI Solutions, we streamline businesses with AI integration and custom
+                        software solutions. Our team of skilled engineers, developers, and UX architects crafts
+                        impactful solutions to increase efficiency and drive digital transformation. Partner with us for
+                        AI-powered success.</p>
                     <div class="row g-0 mb-3">
                         <!-- <div class="col-sm-6 wow zoomIn" data-wow-delay="0.2s">
                             <h5 class="mb-3"><i class="fa fa-check text-custom-dark me-3"></i></h5>
@@ -257,19 +334,24 @@
                         </div> -->
                     </div>
                     <div class="d-flex align-items-center mb-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="bg-custom-dark d-flex align-items-center justify-content-center rounded" style="width: 60px; height: 60px;">
+                        <div class="bg-custom-dark d-flex align-items-center justify-content-center rounded"
+                            style="width: 60px; height: 60px;">
                             <i class="bi bi-whatsapp text-white"></i>
                         </div>
                         <div class="ps-4">
                             <h5 class="mb-2">We are just a message away</h5>
-                            <h4 class="text-custom-dark mb-0"><a class="text-custom-dark" href="https://wa.me/+923469637106"  target="_blank" rel="noopener noreferrer">+92 346 9637106</a></h4>
+                            <h4 class="text-custom-dark mb-0"><a class="text-custom-dark"
+                                    href="https://wa.me/+923469637106" target="_blank" rel="noopener noreferrer">+92 346
+                                    9637106</a></h4>
                         </div>
                     </div>
-                    <a href="contact.html" class="btn btn-primary py-3 px-5 mt-3 wow zoomIn" data-wow-delay="0.9s">Request A Quote</a>
+                    <a href="contact.php" class="btn btn-primary py-3 px-5 mt-3 wow zoomIn"
+                        data-wow-delay="0.9s">Request A Quote</a>
                 </div>
                 <div class="col-lg-5" style="min-height: 500px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src="img/team.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s"
+                            src="img/team.jpg" style="object-fit: cover;">
                     </div>
                 </div>
             </div>
@@ -277,8 +359,8 @@
     </div>
     <!-- About End -->
 
-      <!-- Service Start -->
-      <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <!-- Service Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
                 <h5 class="fw-bold text-custom-dark text-uppercase">Our Services</h5>
@@ -286,67 +368,78 @@
             </div>
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
-                    <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                    <div
+                        class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="service-icon">
                             <i class="fa fa-robot text-white"></i>
                         </div>
                         <h4 class="mb-3">Custom AI Product</h4>
-                        <p class="m-0">Leverage the power of AI to enhance business efficiency and reduce costs by seamlessly integrating it into your apps.</p>
+                        <p class="m-0">Leverage the power of AI to enhance business efficiency and reduce costs by
+                            seamlessly integrating it into your apps.</p>
                         <!-- <a class="btn btn-lg btn-primary rounded" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a> -->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.6s">
-                    <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                    <div
+                        class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="service-icon">
                             <i class="fab fa-apple text-white"></i>
                         </div>
                         <h4 class="mb-3">Mobile Apps</h4>
-                        <p class="m-0">We create engaging mobile apps for iOS and Android that prioritize seamless experiences and user engagement.</p>
+                        <p class="m-0">We create engaging mobile apps for iOS and Android that prioritize seamless
+                            experiences and user engagement.</p>
                         <!-- <a class="btn btn-lg btn-primary rounded" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a> -->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.9s">
-                    <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                    <div
+                        class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="service-icon">
                             <i class="fa fa-code text-white"></i>
                         </div>
                         <h4 class="mb-3">Web Development</h4>
-                        <p class="m-0">We create responsive, user-friendly websites using the latest web technologies, tailored to your business goals.</p>
+                        <p class="m-0">We create responsive, user-friendly websites using the latest web technologies,
+                            tailored to your business goals.</p>
                         <!-- <a class="btn btn-lg btn-primary rounded" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a> -->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
-                    <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                    <div
+                        class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="service-icon">
                             <i class="	fas fa-edit text-white"></i>
                         </div>
                         <h4 class="mb-3">UI / UX design</h4>
-                        <p class="m-0">We design user-friendly interfaces that optimize user experiences through research, wireframes, and prototypes.</p>
+                        <p class="m-0">We design user-friendly interfaces that optimize user experiences through
+                            research, wireframes, and prototypes.</p>
                         <!-- <a class="btn btn-lg btn-primary rounded" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a> -->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.6s">
-                    <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                    <div
+                        class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="service-icon">
                             <i class="fa fa-search text-white"></i>
                         </div>
                         <h4 class="mb-3">Quality Assurance</h4>
-                        <p class="m-0">We ensure reliable, high-performing software applications through rigorous testing and quality assurance strategies, delivering a seamless user experience.</p>
+                        <p class="m-0">We ensure reliable, high-performing software applications through rigorous
+                            testing and quality assurance strategies, delivering a seamless user experience.</p>
                         <!-- <a class="btn btn-lg btn-primary rounded" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a> -->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.9s">
-                    <div class="position-relative bg-custom-dark rounded h-100 d-flex flex-column align-items-center justify-content-center text-center p-5">
+                    <div
+                        class="position-relative bg-custom-dark rounded h-100 d-flex flex-column align-items-center justify-content-center text-center p-5">
                         <h3 class="text-white mb-3">Call for Customized Tailored Solutions</h3>
                         <p class="text-white mb-3">Tailored solutions for your unique needs.</p>
                         <h2 class="text-white mb-0">+92 346 9637106</h2>
@@ -369,37 +462,45 @@
                 <div class="col-lg-4">
                     <div class="row g-5">
                         <div class="col-12 wow zoomIn" data-wow-delay="0.2s">
-                            <div class="bg-custom-dark rounded d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <div class="bg-custom-dark rounded d-flex align-items-center justify-content-center mb-3"
+                                style="width: 60px; height: 60px;">
                                 <i class="far fa-clock	 text-white"></i>
                             </div>
                             <h4>Timely Delivery</h4>
-                            <p class="mb-0">On-time project delivery through efficient management and effective communication.</p>
+                            <p class="mb-0">On-time project delivery through efficient management and effective
+                                communication.</p>
                         </div>
                         <div class="col-12 wow zoomIn" data-wow-delay="0.6s">
-                            <div class="bg-custom-dark rounded d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <div class="bg-custom-dark rounded d-flex align-items-center justify-content-center mb-3"
+                                style="width: 60px; height: 60px;">
                                 <i class="fas fa-sync-alt text-white"></i>
                             </div>
                             <h4>Insightful Progress Updates</h4>
-                            <p class="mb-0">We provide regular, insightful updates on project progress to keep you informed and involved every step of the way.</p>
+                            <p class="mb-0">We provide regular, insightful updates on project progress to keep you
+                                informed and involved every step of the way.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4  wow zoomIn" data-wow-delay="0.9s" style="min-height: 350px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.1s" src="img/team2.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.1s"
+                            src="img/team2.jpg" style="object-fit: cover;">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="row g-5">
                         <div class="col-12 wow zoomIn" data-wow-delay="0.4s">
-                            <div class="bg-custom-dark rounded d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <div class="bg-custom-dark rounded d-flex align-items-center justify-content-center mb-3"
+                                style="width: 60px; height: 60px;">
                                 <i class="fas fa-headset text-white"></i>
                             </div>
                             <h4>24/7 Service</h4>
-                            <p class="mb-0">Our dedicated team is available 24/7 to provide prompt assistance and support whenever you need it.</p>
+                            <p class="mb-0">Our dedicated team is available 24/7 to provide prompt assistance and
+                                support whenever you need it.</p>
                         </div>
                         <div class="col-12 wow zoomIn" data-wow-delay="0.8s">
-                            <div class="bg-custom-dark rounded d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <div class="bg-custom-dark rounded d-flex align-items-center justify-content-center mb-3"
+                                style="width: 60px; height: 60px;">
                                 <i class="fas fa-boxes text-white"></i>
                             </div>
                             <h4>Scalability and Flexibility</h4>
@@ -498,49 +599,53 @@
             <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.6s">
                 <div class="testimonial-item bg-light my-4">
                     <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                        <img class="img-fluid rounded" src="img/martini.jpg" style="width: 60px; height: 60px;" >
+                        <img class="img-fluid rounded" src="img/martini.jpg" style="width: 60px; height: 60px;">
                         <div class="ps-4">
                             <h4 class="text-custom-dark mb-1">Martini Siu</h4>
                             <small class="text-uppercase">Two-Chicks</small>
                         </div>
                     </div>
                     <div class="pt-4 pb-5 px-5">
-                        It has been a great experience working with Sigma AI, and we are excited to collaborate with them again in the future.
+                        It has been a great experience working with Sigma AI, and we are excited to collaborate with
+                        them again in the future.
                     </div>
                 </div>
                 <div class="testimonial-item bg-light my-4">
                     <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                        <img class="img-fluid rounded" src="img/jin.jpg" style="width: 60px; height: 60px;" >
+                        <img class="img-fluid rounded" src="img/jin.jpg" style="width: 60px; height: 60px;">
                         <div class="ps-4">
                             <h4 class="text-custom-dark mb-1">GuangCheng Wang</h4>
                             <small class="text-uppercase">Jin Cowboy China</small>
                         </div>
                     </div>
                     <div class="pt-4 pb-5 px-5">
-                        We're highly satisfied with Sigma AI's expertise and professionalism as developers, and look forward to our continued merger. </div>
+                        We're highly satisfied with Sigma AI's expertise and professionalism as developers, and look
+                        forward to our continued merger. </div>
                 </div>
                 <div class="testimonial-item bg-light my-4">
                     <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                        <img class="img-fluid rounded" src="img/dr.png" style="width: 60px; height: 60px;" >
+                        <img class="img-fluid rounded" src="img/dr.png" style="width: 60px; height: 60px;">
                         <div class="ps-4">
                             <h4 class="text-custom-dark mb-1">Dr. Sarah Thompson</h4>
                             <small class="text-uppercase">Bright Smiles Dental Clinic</small>
                         </div>
                     </div>
                     <div class="pt-4 pb-5 px-5">
-                        Thanks now I can accurately simulate teeth enhancements, helping patients visualize the final results before treatment.
+                        Thanks now I can accurately simulate teeth enhancements, helping patients visualize the final
+                        results before treatment.
                     </div>
                 </div>
                 <div class="testimonial-item bg-light my-4">
                     <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                        <img class="img-fluid rounded" src="img/abiyah.png" style="width: 60px; height: 60px;" >
+                        <img class="img-fluid rounded" src="img/abiyah.png" style="width: 60px; height: 60px;">
                         <div class="ps-4">
                             <h4 class="text-custom-dark mb-1">Abiyah</h4>
                             <small class="text-uppercase">We The People University</small>
                         </div>
                     </div>
                     <div class="pt-4 pb-5 px-5">
-                        Hiring Sigma AI for our app was a game-changer, exceeding our expectations with their dedication, & top-notch solutions.
+                        Hiring Sigma AI for our app was a game-changer, exceeding our expectations with their
+                        dedication, & top-notch solutions.
                     </div>
                 </div>
             </div>
@@ -613,7 +718,7 @@
     </div> -->
     <!-- Team End -->
 
-    
+
     <!-- Quote Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -628,12 +733,18 @@
                             <h5 class="mb-4"><i class="fa fa-reply text-custom-dark me-3"></i>Reply within 24 hours</h5>
                         </div>
                         <div class="col-sm-6 wow zoomIn" data-wow-delay="0.4s">
-                            <h5 class="mb-4"><i class="fa fa-phone text-custom-dark me-3"></i>24 hrs WhatsApp support</h5>
+                            <h5 class="mb-4"><i class="fa fa-phone text-custom-dark me-3"></i>24 hrs WhatsApp support
+                            </h5>
                         </div>
                     </div>
-                    <p class="mb-4">At Sigma AI, we understand that every project is unique and requires a tailored solution. We invite you to request a free quote by contacting us today. Simply provide us with some basic information about your project, and our team of experts will promptly assess your requirements and provide you with a customized quote. We value your time and are committed to delivering prompt and accurate responses to your inquiries. Take the first step towards turning your vision into reality by reaching out to us for a free quote.</p>
+                    <p class="mb-4">At Sigma AI, we understand that every project is unique and requires a tailored
+                        solution. We invite you to request a free quote by contacting us today. Simply provide us with
+                        some basic information about your project, and our team of experts will promptly assess your
+                        requirements and provide you with a customized quote. We value your time and are committed to
+                        delivering prompt and accurate responses to your inquiries. Take the first step towards turning
+                        your vision into reality by reaching out to us for a free quote.</p>
                     <div class=" d-flex align-items-center mt-2 wow zoomIn row" data-wow-delay="0.6s">
-                        
+
                         <!-- <div class="bg-custom-dark d-flex align-items-center justify-content-center rounded col-lg-2" style="width: 60px; height: 60px;">
                             <i class="fab fa-whatsapp text-white"></i>
                         </div>
@@ -650,10 +761,11 @@
                             <h5 class="mb-2">Email</h5>
                             <h4 class="text-custom-dark mb-0">contact@sigmasoftai.com</h4>
                         </div> -->
-                   
+
                         <div class="col-lg-6">
                             <div class="d-flex align-items-center wow fadeIn" data-wow-delay="0.1s">
-                                <div class="bg-custom-dark d-flex align-items-center justify-content-center rounded" style="width: 60px; height: 60px;">
+                                <div class="bg-custom-dark d-flex align-items-center justify-content-center rounded"
+                                    style="width: 60px; height: 60px;">
                                     <i class="bi bi-whatsapp text-white"></i>
                                 </div>
                                 <div class="ps-4">
@@ -669,7 +781,8 @@
 
                         <div class="col-lg-6">
                             <div class="d-flex align-items-center wow fadeIn" data-wow-delay="0.4s">
-                                <div class="bg-custom-dark d-flex align-items-center justify-content-center rounded" style="width: 60px; height: 60px;">
+                                <div class="bg-custom-dark d-flex align-items-center justify-content-center rounded"
+                                    style="width: 60px; height: 60px;">
                                     <i class="fa fa-envelope-open text-white"></i>
                                 </div>
                                 <div class="ps-4">
@@ -681,14 +794,17 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <div class="bg-custom-dark rounded h-100 d-flex align-items-center p-5 wow zoomIn" data-wow-delay="0.9s">
-                        <form method="post" action="send-email.php">
+                    <div class="bg-custom-dark rounded h-100 d-flex align-items-center p-5 wow zoomIn"
+                        data-wow-delay="0.9s">
+                        <form method="post" action="">
                             <div class="row g-3">
                                 <div class="col-xl-12">
-                                    <input type="text" name="name" class="form-control bg-light border-0" placeholder="Your Name" style="height: 55px;">
+                                    <input type="text" name="name" class="form-control bg-light border-0"
+                                        placeholder="Your Name" style="height: 55px;">
                                 </div>
                                 <div class="col-12">
-                                    <input type="email" name="email" class="form-control bg-light border-0" placeholder="Your Email" style="height: 55px;">
+                                    <input type="email" name="email" class="form-control bg-light border-0"
+                                        placeholder="Your Email" style="height: 55px;">
                                 </div>
                                 <!-- <div class="col-12">
                                     <select class="" style="height: 55px;">
@@ -699,16 +815,18 @@
                                     </select>
                                 </div> -->
                                 <div class="col-12">
-                                    <textarea class="form-control bg-light border-0" rows="3" name="message" placeholder="Message"></textarea>
+                                    <textarea class="form-control bg-light border-0" rows="3" name="message"
+                                        placeholder="Message"></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-dark w-100 py-3" name="submit" type="submit">Request A Quote</button>
+                                    <button class="btn btn-dark w-100 py-3" name="submit" type="submit">Request A
+                                        Quote</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -777,15 +895,16 @@
             </div>
         </div>
     </div> -->
-    <!-- Blog Start -->    
+    <!-- Blog Start -->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light mt-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
             <div class="row gx-5">
                 <div class="col-lg-4 col-md-6 footer-about">
-                    <div class="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-custom-dark p-4">
-                        <a href="index.html" class="navbar-brand">
+                    <div
+                        class="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-custom-dark p-4">
+                        <a href="index.php" class="navbar-brand">
                             <h1 class="m-0 text-white footer-title"><i class="me-2"></i>Sigma Soft AI</h1>
                         </a>
                         <p class="mt-3 mb-4">Unleashing the Power of Artificial Intelligence for Innovative Solutions.
@@ -817,11 +936,21 @@
                                 <p class="mb-0">+92 346 96371060</p>
                             </div>
                             <div class="d-flex mt-4">
-                                <a class="btn btn-primary btn-square me-2" href="https://www.linkedin.com/company/sigma-soft-tech" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in fw-normal"></i></a>
-                                <a class="btn btn-primary btn-square me-2" href="https://twitter.com/SigmaSoftAI" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fw-normal"></i></a>
-                                <a class="btn btn-primary btn-square me-2" href="https://www.facebook.com/profile.php?id=100094257815011" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fw-normal"></i></a>
-                                <a class="btn btn-primary btn-square me-2" href="https://www.instagram.com/sigmasoftai" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fw-normal"></i></a>
-                                <a class="btn btn-primary btn-square" href="https://youtube.com/@SigmaSoftAI" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube fw-normal"></i></a>
+                                <a class="btn btn-primary btn-square me-2"
+                                    href="https://www.linkedin.com/company/sigma-soft-tech" target="_blank"
+                                    rel="noopener noreferrer"><i class="fab fa-linkedin-in fw-normal"></i></a>
+                                <a class="btn btn-primary btn-square me-2" href="https://twitter.com/SigmaSoftAI"
+                                    target="_blank" rel="noopener noreferrer"><i
+                                        class="fab fa-twitter fw-normal"></i></a>
+                                <a class="btn btn-primary btn-square me-2"
+                                    href="https://www.facebook.com/profile.php?id=100094257815011" target="_blank"
+                                    rel="noopener noreferrer"><i class="fab fa-facebook-f fw-normal"></i></a>
+                                <a class="btn btn-primary btn-square me-2" href="https://www.instagram.com/sigmasoftai"
+                                    target="_blank" rel="noopener noreferrer"><i
+                                        class="fab fa-instagram fw-normal"></i></a>
+                                <a class="btn btn-primary btn-square" href="https://youtube.com/@SigmaSoftAI"
+                                    target="_blank" rel="noopener noreferrer"><i
+                                        class="fab fa-youtube fw-normal"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
@@ -829,12 +958,18 @@
                                 <h3 class="text-light mb-0">Featured Products</h3>
                             </div>
                             <div class="link-animated d-flex flex-column justify-content-start">
-                                <a class="text-light mb-2" href="nopage.html"><i class="bi bi-arrow-right text-custom-dark me-2"></i>VisiFace</a>
-                                <a class="text-light mb-2" href="nopage.html"><i class="bi bi-arrow-right text-custom-dark me-2"></i>Smile Enhancer</a>
-                                <a class="text-light mb-2" href="nopage.html"><i class="bi bi-arrow-right text-custom-dark me-2"></i>Find Me</a>
-                                <a class="text-light mb-2" href="nopage.html"><i class="bi bi-arrow-right text-custom-dark me-2"></i>EasyMed</a>
-                                <a class="text-light mb-2" href="nopage.html"><i class="bi bi-arrow-right text-custom-dark me-2"></i>MailFlow</a>
-                                <a class="text-light" href="nopage.html"><i class="bi bi-arrow-right text-custom-dark me-2"></i>Video Gen</a>
+                                <a class="text-light mb-2" href="nopage.html"><i
+                                        class="bi bi-arrow-right text-custom-dark me-2"></i>VisiFace</a>
+                                <a class="text-light mb-2" href="nopage.html"><i
+                                        class="bi bi-arrow-right text-custom-dark me-2"></i>Smile Enhancer</a>
+                                <a class="text-light mb-2" href="nopage.html"><i
+                                        class="bi bi-arrow-right text-custom-dark me-2"></i>Find Me</a>
+                                <a class="text-light mb-2" href="nopage.html"><i
+                                        class="bi bi-arrow-right text-custom-dark me-2"></i>EasyMed</a>
+                                <a class="text-light mb-2" href="nopage.html"><i
+                                        class="bi bi-arrow-right text-custom-dark me-2"></i>MailFlow</a>
+                                <a class="text-light" href="nopage.html"><i
+                                        class="bi bi-arrow-right text-custom-dark me-2"></i>Video Gen</a>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
@@ -842,12 +977,15 @@
                                 <h3 class="text-light mb-0">Company</h3>
                             </div>
                             <div class="link-animated d-flex flex-column justify-content-start">
-                                <a class="text-light mb-2" href="about.html"><i class="bi bi-arrow-right text-custom-dark me-2"></i>About Us</a>
-                                <a class="text-light mb-2" href="service.html"><i class="bi bi-arrow-right text-custom-dark me-2"></i>Our Services</a>
+                                <a class="text-light mb-2" href="about.html"><i
+                                        class="bi bi-arrow-right text-custom-dark me-2"></i>About Us</a>
+                                <a class="text-light mb-2" href="service.html"><i
+                                        class="bi bi-arrow-right text-custom-dark me-2"></i>Our Services</a>
                                 <!-- <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-custom-dark me-2"></i>Meet The Team</a> -->
                                 <!-- <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-custom-dark me-2"></i>Our Products</a> -->
                                 <!-- <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-custom-dark me-2"></i>Latest Blog</a> -->
-                                <a class="text-light" href="contact.html"><i class="bi bi-arrow-right text-custom-dark me-2"></i>Contact Us</a>
+                                <a class="text-light" href="contact.php"><i
+                                        class="bi bi-arrow-right text-custom-dark me-2"></i>Contact Us</a>
                             </div>
                         </div>
                     </div>
@@ -860,8 +998,9 @@
             <div class="row justify-content-end">
                 <div class="col-lg-8 col-md-6">
                     <div class="d-flex align-items-center justify-content-center" style="height: 75px;">
-                        <p class="mb-0">&copy; <a class="text-white border-bottom"  href="index.html">sigmasoftai.com</a> All Rights Reserved. 
-						</div>
+                        <p class="mb-0">&copy; <a class="text-white border-bottom" href="index.php">sigmasoftai.com</a>
+                            All Rights Reserved.
+                    </div>
                 </div>
             </div>
         </div>

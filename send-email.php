@@ -15,8 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($name) && empty($name) && isset($email) && empty($email)) {
     echo '<script>alert("Name and email mandatory");</script>';
   } else {
-    $to = "kumaillatif60@gmail.com"; // Replace with your own email address sharjeel.rao089@gmail.com
-    $toPass = "kumaillatif1122";
+    $to = "sharjeel.rao089@gmail.com"; // Replace with your own email address
     $subject = "New Contact Form Submission";
     $body = "Name: " . $name . "\n\nEmail: " . $email . "\n\nMessage: " . $message;
 
@@ -24,41 +23,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $mail = new PHPMailer(true);
 
+    $mail->SMTPDebug = 2;
+    $mail->isSMTP(); // Set mailer to use SMTP
+    $mail->CharSet = "utf-8"; // set charset to utf8
+    $mail->SMTPAuth = true; // Enable SMTP authentication
+    $mail->SMTPSecure = 'ssl'; // Enable TLS encryption, `ssl` also accepted
+    $mail->SMTPDebug = 2;
 
-    try {
-      //Server settings
-      $mail->SMTPDebug = SMTP::DEBUG_SERVER; //Enable verbose debug output
-      $mail->isSMTP(); //Send using SMTP
-      $mail->Host = 'smtp.example.com'; //Set the SMTP server to send through
-      $mail->SMTPAuth = true; //Enable SMTP authentication
-      $mail->Username = $to; //SMTP username
-      $mail->Password = $toPass; //SMTP password
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-      $mail->Port = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;
+    // $mail->SMTPAutoTLS = false;
+    $mail->Port = 587; // TCP port to connect to
+    $mail->SMTPOptions = array(
+      'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+      )
+    );
+    $mail->isHTML(true); // Set email format to HTML
 
-      //Recipients
-      $mail->setFrom($email, $name);
-      $mail->addAddress($to, 'Sigma Soft AI'); //Add a recipient
-      // $mail->addAddress('ellen@example.com');
-      $mail->addReplyTo('info@sigmasoftai.com', 'Information');
-      // $mail->addCC('cc@example.com');
-      // $mail->addBCC('bcc@example.com');
+    $mail->Username = 'kumaillatif60@gmail.com'; // SMTP username
+    $mail->Password = 'xgxaqnzyzfjgaxfe'; // SMTP password
 
-      //Attachments
-      // $mail->addAttachment('/var/tmp/file.tar.gz'); //Add attachments
-      // $mail->addAttachment('/tmp/image.jpg', 'new.jpg'); //Optional name
-
-      //Content
-      $mail->isHTML(true); //Set email format to HTML
-      $mail->Subject = 'User connection Request';
-      $mail->Body = $body;
-      // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-      $mail->send();
-      echo '<script>alert("Message sent successfully");</script>';
-    } catch (Exception $e) {
-      echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    }
+    $mail->setFrom($email, $name); //Your application NAME and EMAIL
+    $mail->Subject = 'Sigma Soft user connection request'; //Message subject
+    $mail->MsgHTML($body); // Message body
+    $mail->addAddress('kumaillatif60@gmail.com', 'Sigma Soft AI'); // Target email
 
 
 
@@ -66,13 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Add attachments if needed
 //$mail->addAttachment('path/to/file.pdf');
 
-    // try {
-    //   $mail->send();
-    //   echo '<script>alert("Message sent successfully");</script>';
-    // } catch (Exception $e) {
-    //   echo $mail->ErrorInfo;
-    //   echo '<script>alert("Error sending request");</script>';
-    // }
+    try {
+      $mail->send();
+      echo '<script>alert("Message sent successfully");</script>';
+    } catch (Exception $e) {
+      echo $mail->ErrorInfo;
+      echo '<script>alert("Error sending request");</script>';
+      // echo 'Mailer Error: ' . $mail->ErrorInfo;
+    }
   }
 }
 ?>

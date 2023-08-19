@@ -112,6 +112,10 @@ h6,
     color: #565656;
 }
 
+.small-text-on-mobile{
+    font-size: 19px;
+}
+
 .text-primary {
     color: #3DAFAC;
 }

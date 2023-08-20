@@ -194,22 +194,26 @@
             </div>
             <div class="row g-5">
                 <div class="col-lg-6 wow slideInUp" data-wow-delay="0.3s">
-                    <form>
+                    <form action="https://formsubmit.co/sharjeel.rao089@gmail.com" method="POST">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <input type="text" class="form-control border-0 bg-light px-4" placeholder="Your Name" style="height: 55px;">
+                                <input type="text" name="name" class="form-control border-0 bg-light px-4" placeholder="Your Name" style="height: 55px;">
                             </div>
                             <div class="col-md-6">
-                                <input type="email" class="form-control border-0 bg-light px-4" placeholder="Your Email" style="height: 55px;">
+                                <input type="email" name="email" class="form-control border-0 bg-light px-4" placeholder="Your Email" style="height: 55px;">
                             </div>
+                            <!-- <div class="col-12">
+                                <input type="text" name="Subject" class="form-control border-0 bg-light px-4" placeholder="Subject" style="height: 55px;">
+                            </div> -->
                             <div class="col-12">
-                                <input type="text" class="form-control border-0 bg-light px-4" placeholder="Subject" style="height: 55px;">
+                                <textarea class="form-control border-0 bg-light px-4 py-3" rows="8" placeholder="Message"></textarea>
                             </div>
+                            <input type="hidden" name="_captcha" value="false" />
+                            <input type="hidden" name="_next" value="https://sigmasoftai.com/contact.html">
+                            <input type="hidden" name="_subject" value="NEW EMAIL from Contact form">
+
                             <div class="col-12">
-                                <textarea class="form-control border-0 bg-light px-4 py-3" rows="4" placeholder="Message"></textarea>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                <button class="btn btn-primary w-100 py-3" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Send Message</button>
                             </div>
                         </div>
                     </form>
@@ -224,6 +228,28 @@
         </div>
     </div>
     <!-- Contact End -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Request Sent</h5>
+                <!-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+                </div>
+                <div class="modal-body">
+                Done! We will contact you soon.
+                </div>
+                <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" >Close</button> -->
+                <button type="button" class="btn btn-primary"data-bs-dismiss="modal">Okay</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Modal End-->
 
  <!-- Vendor Start -->
  <div class="container-fluid py-3 wow fadeInUp" data-wow-delay="0.1s">

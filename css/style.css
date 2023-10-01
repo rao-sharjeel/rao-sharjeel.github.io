@@ -80,6 +80,18 @@ h6,
     font-weight: 600 !important;
 }
 
+.top-bottom-space{
+    margin-top: 2vw;
+    margin-bottom: 0.5vw;
+}
+
+.top-space{
+    margin-top: 2vw;
+}
+
+.bottom-space{
+    margin-bottom: 1vw;
+}
 
 /*** Button ***/
 .btn {
